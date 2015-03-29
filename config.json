@@ -1,5 +1,6 @@
 {
     "server_addr" : "127.0.0.1",
     "server_port" : "12345",
-    "dns_server" : "10.10.0.21"
+    "dns_server_addr" : "10.10.0.21",
+    "dns_server_port" : "53"
 }

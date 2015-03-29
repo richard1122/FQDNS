@@ -1,9 +1,11 @@
 dgram = require 'dgram'
-config = require './common'
+common = require './common'
 crypto = require 'crypto'
 
-FQServer = "127.0.0.1"
-FQServerPort = 12345
+FQServer = common.parseConfig 'server_addr'
+FQServerPort = parseInt(common.parseConfig 'server_port')
+
+console.log FQServer, FQServerPort
 
 idAddrQueue = []
 idAddrQueuePointer = 0
@@ -27,15 +29,15 @@ listenSocket.on 'message', (msg, rinfo) ->
     console.log rinfo
     if (rinfo.address == FQServer and rinfo.port == FQServerPort)
         # server response
-        rinfo = findQueue msg.readUIntBE 0, 2
+        rinfo = findQueue common.getID(msg)
         if (rinfo?)
             listenSocket.send msg, 0, msg.length, rinfo.port, rinfo.address
         else
             console.log 'Warning: DNS request response match failed'
     else
         # client query
-        id = msg.readUIntBE 0, 2
+        id = common.getID msg
+        console.log id
         enQueue id, rinfo
         listenSocket.send msg, 0, msg.length, FQServerPort, FQServer
-
 
