@@ -1,0 +1,1 @@
+exports.idLen = 10
