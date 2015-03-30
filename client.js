@@ -54,8 +54,8 @@ listenSocket.on('message', function(msg, rinfo) {
     }
   } else {
     id = common.getID(msg);
-    console.log(id);
     enQueue(id, rinfo);
+    msg = common.encrypt(msg);
     return listenSocket.send(msg, 0, msg.length, FQServerPort, FQServer);
   }
 });

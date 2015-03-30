@@ -37,7 +37,7 @@ listenSocket.on 'message', (msg, rinfo) ->
     else
         # client query
         id = common.getID msg
-        console.log id
         enQueue id, rinfo
+        msg = common.encrypt msg
         listenSocket.send msg, 0, msg.length, FQServerPort, FQServer
 

@@ -18,6 +18,7 @@ s.bind(12345);
 s.on('message', function(msg, rinfo) {
   console.log(rinfo);
   if (rinfo.address !== dnsServer) {
+    msg = common.decrypt(msg);
     return s.send(msg, 0, msg.length, dnsServerPort, dnsServer);
   } else {
     return s.send(msg, 0, msg.length, 8053, "127.0.0.1");
