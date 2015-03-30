@@ -26,7 +26,7 @@ findQueue = (id) ->
 listenSocket = dgram.createSocket 'udp4'
 listenSocket.bind 8053
 listenSocket.on 'message', (msg, rinfo) ->
-    console.log rinfo
+    console.log rinfo, msg
     if (rinfo.address == FQServer and rinfo.port == FQServerPort)
         # server response
         rinfo = findQueue common.getID(msg)

@@ -8,7 +8,7 @@ dnsServerPort = parseInt(common.parseConfig 'dns_server_port')
 s = dgram.createSocket 'udp4'
 s.bind 12345
 s.on 'message', (msg, rinfo)->
-    console.log rinfo
+    console.log rinfo, msg
     if (rinfo.address != dnsServer)
         msg = common.decrypt msg
         s.send msg, 0, msg.length, dnsServerPort, dnsServer

@@ -16,7 +16,7 @@ s = dgram.createSocket('udp4');
 s.bind(12345);
 
 s.on('message', function(msg, rinfo) {
-  console.log(rinfo);
+  console.log(rinfo, msg);
   if (rinfo.address !== dnsServer) {
     msg = common.decrypt(msg);
     return s.send(msg, 0, msg.length, dnsServerPort, dnsServer);

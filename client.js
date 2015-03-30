@@ -44,7 +44,7 @@ listenSocket.bind(8053);
 
 listenSocket.on('message', function(msg, rinfo) {
   var id;
-  console.log(rinfo);
+  console.log(rinfo, msg);
   if (rinfo.address === FQServer && rinfo.port === FQServerPort) {
     rinfo = findQueue(common.getID(msg));
     if ((rinfo != null)) {
