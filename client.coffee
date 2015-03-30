@@ -16,6 +16,7 @@ listenSocket.on 'message', (msg, rinfo) ->
         rinfo = queue.find common.getID(msg), (r1, dft) ->
             return r1.id is dft
         if (rinfo?)
+            msg = common.decrypt msg
             listenSocket.send msg, 0, msg.length, rinfo.rinfo.port, rinfo.rinfo.address
         else
             console.log 'Warning: DNS request response match failed'

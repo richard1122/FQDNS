@@ -24,6 +24,7 @@ listenSocket.on('message', function(msg, rinfo) {
       return r1.id === dft;
     });
     if ((rinfo != null)) {
+      msg = common.decrypt(msg);
       return listenSocket.send(msg, 0, msg.length, rinfo.rinfo.port, rinfo.rinfo.address);
     } else {
       return console.log('Warning: DNS request response match failed');
