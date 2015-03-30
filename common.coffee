@@ -11,11 +11,11 @@ exports.parseConfig = ((key)->
     )()
 )
 exports.encrypt = (msg) ->
-    cipher = crypto.createCipher 'aes-256-cbc', getPWD()
+    cipher = crypto.createCipher 'aes256', getPWD()
     return Buffer.concat [cipher.update(msg), cipher.final()]
 
 exports.decrypt = (msg) ->
-    decipher = crypto.createDecipher 'aes-256-cbc', getPWD()
+    decipher = crypto.createDecipher 'aes256', getPWD()
     return Buffer.concat [decipher.update(msg), decipher.final()]
 
 exports.queue = class

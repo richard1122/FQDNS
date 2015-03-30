@@ -22,13 +22,13 @@ exports.parseConfig = (function(key) {
 
 exports.encrypt = function(msg) {
   var cipher;
-  cipher = crypto.createCipher('aes-256-cbc', getPWD());
+  cipher = crypto.createCipher('aes256', getPWD());
   return Buffer.concat([cipher.update(msg), cipher.final()]);
 };
 
 exports.decrypt = function(msg) {
   var decipher;
-  decipher = crypto.createDecipher('aes-256-cbc', getPWD());
+  decipher = crypto.createDecipher('aes256', getPWD());
   return Buffer.concat([decipher.update(msg), decipher.final()]);
 };
 
