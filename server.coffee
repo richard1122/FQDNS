@@ -24,3 +24,5 @@ s.on 'message', (msg, rinfo)->
         if (rinfo?)
             msg = common.encrypt msg
             s.send msg, 0, msg.length, rinfo.rinfo.port, rinfo.rinfo.address
+        else
+            console.log 'Warning: DNS request response match failed'

@@ -20,11 +20,11 @@ listenSocket.bind(8053);
 listenSocket.on('message', function(msg, rinfo) {
   console.log(rinfo);
   if (rinfo.address === FQServer && rinfo.port === FQServerPort) {
+    msg = common.decrypt(msg);
     rinfo = queue.find(common.getID(msg), function(r1, dft) {
       return r1.id === dft;
     });
     if ((rinfo != null)) {
-      msg = common.decrypt(msg);
       return listenSocket.send(msg, 0, msg.length, rinfo.rinfo.port, rinfo.rinfo.address);
     } else {
       return console.log('Warning: DNS request response match failed');

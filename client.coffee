@@ -13,10 +13,10 @@ listenSocket.on 'message', (msg, rinfo) ->
     console.log rinfo
     if rinfo.address is FQServer and rinfo.port is FQServerPort
         # server response
+        msg = common.decrypt msg
         rinfo = queue.find common.getID(msg), (r1, dft) ->
             return r1.id is dft
         if (rinfo?)
-            msg = common.decrypt msg
             listenSocket.send msg, 0, msg.length, rinfo.rinfo.port, rinfo.rinfo.address
         else
             console.log 'Warning: DNS request response match failed'

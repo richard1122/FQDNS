@@ -35,6 +35,8 @@ s.on('message', function(msg, rinfo) {
     if ((rinfo != null)) {
       msg = common.encrypt(msg);
       return s.send(msg, 0, msg.length, rinfo.rinfo.port, rinfo.rinfo.address);
+    } else {
+      return console.log('Warning: DNS request response match failed');
     }
   }
 });
