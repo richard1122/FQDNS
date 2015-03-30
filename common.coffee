@@ -12,7 +12,6 @@ exports.parseConfig = ((key)->
 )
 exports.encrypt = (msg) ->
     cipher = crypto.createCipher 'aes-256-cbc', getPWD()
-    cipher.setAutoPadding true
     return Buffer.concat [cipher.update(msg), cipher.final()]
 
 exports.decrypt = (msg) ->

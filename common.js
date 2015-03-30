@@ -23,7 +23,6 @@ exports.parseConfig = (function(key) {
 exports.encrypt = function(msg) {
   var cipher;
   cipher = crypto.createCipher('aes-256-cbc', getPWD());
-  cipher.setAutoPadding(true);
   return Buffer.concat([cipher.update(msg), cipher.final()]);
 };
 
