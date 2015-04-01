@@ -22,15 +22,41 @@ exports.parseConfig = (function(key) {
 
 exports.encrypt = function(msg) {
   var cipher;
-  cipher = crypto.createCipher('aes-256-cbc', getPWD());
+  cipher = crypto.createCipher('aes256', getPWD());
   return Buffer.concat([cipher.update(msg), cipher.final()]);
 };
 
 exports.decrypt = function(msg) {
   var decipher;
-  decipher = crypto.createDecipher('aes-256-cbc', getPWD());
+  decipher = crypto.createDecipher('aes256', getPWD());
   return Buffer.concat([decipher.update(msg), decipher.final()]);
 };
+
+exports.queue = (function() {
+  function _Class() {
+    this.queue = [];
+    this.pointer = 0;
+    this.QUEUE_SIZE = 200;
+  }
+
+  _Class.prototype.enqueue = function(val) {
+    this.pointer = (this.pointer + 1) % this.QUEUE_SIZE;
+    return this.queue[this.pointer] = val;
+  };
+
+  _Class.prototype.find = function(val, cmp) {
+    var i, j, ref;
+    for (i = j = 0, ref = this.QUEUE_SIZE; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      if ((this.queue[i] != null) && cmp(this.queue[i], val)) {
+        return this.queue[i];
+      }
+    }
+    return null;
+  };
+
+  return _Class;
+
+})();
 
 getPWD = (function() {
   var password;
